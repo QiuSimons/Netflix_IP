@@ -1,0 +1,44 @@
+name: Generate-Netflix-CI
+
+on:
+  schedule:
+    - cron: 0 16 * * *
+  watch:
+    types: [started]
+  #push:
+  #  branches: 
+  #    - master
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Init build dependencies
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get update -y
+        sudo -E apt-get install -y aggregate whois
+        
+    - name: Run generate script
+      run: | 
+        chmod +x ./netflix_iprange.sh
+        bash ./netflix_iprange.sh
+        rm -f ./update.txt
+        echo `date +%Y/%m/%d\ %H:%M:%S\ %Z` >> ./update.txt
+      
+    - name: Commit file
+      run: |
+        git config --global user.email simonsqiu@foxmail.com
+        git config --global user.name SimonsQiu
+        git add .
+        git commit -m "Update `date +%Y/%m/%d\ %H:%M:%S\ %Z`" -a
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
