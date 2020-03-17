@@ -4,10 +4,14 @@
 set -e
 if [ -e getflix.txt ] ; then rm getflix.txt ; fi
 # This command finds the ASNUMs owned by netflix
-curl -s "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" >nflix.zip
+curl -s "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=jm1GphFwQ3pmAgoB&suffix=zip" >nflix.zip
 for as in $(unzip -p nflix.zip `unzip -l nflix.zip |grep -e GeoLite2-ASN-Blocks-IPv4.csv | sed 's/^.\{30\}//g'` | grep -i netflix | cut -d"," -f2 | sort -u)
     do
-    whois -h whois.radb.net -- '-i origin AS'$as | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+     whois -h whois.radb.net -- '-i origin AS'$as | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+     whois -h whois.radb.net -- '-i origin AS2906' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+     whois -h whois.radb.net -- '-i origin AS394406' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+     whois -h whois.radb.net -- '-i origin AS40027' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+     whois -h whois.radb.net -- '-i origin AS55095' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
 done
 
 # Get the Amazon AWS ip range list
