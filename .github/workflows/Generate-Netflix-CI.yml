@@ -25,6 +25,8 @@ jobs:
         sudo -E apt-get install -y aggregate whois
         
     - name: Run generate script
+      env: 
+        LICENSE_KEY: ${{ secrets.LICENSE_KEY }}
       run: | 
         chmod +x ./netflix_iprange.sh
         bash ./netflix_iprange.sh
