@@ -14,6 +14,9 @@ for as in $(unzip -p nflix.zip `unzip -l nflix.zip |grep -e GeoLite2-ASN-Blocks-
      whois -h whois.radb.net -- '-i origin AS55095' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
 done
 
+# Netflix only IP address ranges
+cat getflix.tmp | sort -u >NF_only.txt
+
 # Get the Amazon AWS ip range list
 curl -s https://ip-ranges.amazonaws.com/ip-ranges.json |grep ip_prefix |cut -d"\"" -f4 >>getflix.tmp
 
