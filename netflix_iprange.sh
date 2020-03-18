@@ -15,13 +15,13 @@ for as in $(unzip -p nflix.zip `unzip -l nflix.zip |grep -e GeoLite2-ASN-Blocks-
 done
 
 # Netflix only IP address ranges
-cat getflix.tmp | sort -u >NF_only.txt
+cat getflix.tmp | aggregate -q >NF_only.txt
 
 # Get the Amazon AWS ip range list
 curl -s https://ip-ranges.amazonaws.com/ip-ranges.json |grep ip_prefix |cut -d"\"" -f4 >>getflix.tmp
 
 # unify both the IP address ranges
-cat getflix.tmp | sort -u >getflix.txt
+cat getflix.tmp | aggregate -q >getflix.txt
 #tidy the tempfiles
 rm nflix.zip
 rm getflix.tmp
