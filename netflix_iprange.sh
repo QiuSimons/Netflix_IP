@@ -27,3 +27,4 @@ cat getflix.tmp | aggregate -q >getflix.txt
 rm nflix.zip
 rm getflix.tmp
 rm netflix_ranges.txt
+rm ip-ranges.json
