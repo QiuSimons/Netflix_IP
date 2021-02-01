@@ -22,7 +22,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E apt-get update -y
-        sudo -E apt-get install -y aggregate whois
+        sudo -E apt-get install -y aggregate whois jq
         
     - name: Run generate script
       env: 
