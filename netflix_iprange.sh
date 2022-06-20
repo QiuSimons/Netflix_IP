@@ -16,6 +16,10 @@ done
 
 curl -O "https://raw.githubusercontent.com/dler-io/Rules/main/Surge/Surge%203/Provider/Media/Netflix.list"
 awk '{match($0, /[0-9]+\.[0-9]+\.[0-9]+\.*[0-9]+\/[0-9]+/); print substr($0, RSTART, RLENGTH)}' Netflix.list >>getflix.tmp
+rm Netflix.list
+curl -O "https://raw.githubusercontent.com/Masstone/Rules/master/Lists/Netflix.list"
+awk '{match($0, /[0-9]+\.[0-9]+\.[0-9]+\.*[0-9]+\/[0-9]+/); print substr($0, RSTART, RLENGTH)}' Netflix.list >>getflix.tmp
+rm Netflix.list
 
 # Netflix only IP address ranges
 cat getflix.tmp | aggregate -q >NF_only.txt
@@ -32,7 +36,6 @@ curl -s https://purge.jsdelivr.net/gh/QiuSimons/Netflix_IP/getflix.txt
 curl -s https://purge.jsdelivr.net/gh/QiuSimons/Netflix_IP@master/getflix.txt
 curl -s https://purge.jsdelivr.net/gh/QiuSimons/Netflix_IP@master/NF_only.txt
 rm nflix.zip
-rm Netflix.list
 rm getflix.tmp
 rm netflix_ranges.txt
 rm ip-ranges.json
