@@ -32,6 +32,7 @@ curl -s https://purge.jsdelivr.net/gh/QiuSimons/Netflix_IP/getflix.txt
 curl -s https://purge.jsdelivr.net/gh/QiuSimons/Netflix_IP@master/getflix.txt
 curl -s https://purge.jsdelivr.net/gh/QiuSimons/Netflix_IP@master/NF_only.txt
 rm nflix.zip
+rm Netflix.list
 rm getflix.tmp
 rm netflix_ranges.txt
 rm ip-ranges.json
