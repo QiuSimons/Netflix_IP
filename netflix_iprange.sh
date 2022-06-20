@@ -14,7 +14,8 @@ for as in $(unzip -p nflix.zip `unzip -l nflix.zip |grep -e GeoLite2-ASN-Blocks-
      whois -h whois.radb.net -- '-i origin AS55095' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
 done
 
-curl -s "https://github.com/dler-io/Rules/raw/main/Surge/Surge%203/Provider/Media/Netflix.list" | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+curl -O "https://raw.githubusercontent.com/dler-io/Rules/main/Surge/Surge%203/Provider/Media/Netflix.list"
+awk '{match($0, /[0-9]+\.[0-9]+\.[0-9]+\.*[0-9]+\/[0-9]+/); print substr($0, RSTART, RLENGTH)}' Netflix.list >>getflix.tmp
 
 # Netflix only IP address ranges
 cat getflix.tmp | aggregate -q >NF_only.txt
