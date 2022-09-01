@@ -6,8 +6,8 @@
   result2=$(echo $runner_cpu | grep "${cpu2}")
   if [[ "$result1" != "" ]] && [[ "$result2" != "" ]]
   then
+      echo "$(cat /proc/cpuinfo | grep 'model name')"
+  else
       echo "cpu performance not enough"
       exit 1
-  else
-      echo "$(cat /proc/cpuinfo | grep 'model name')"
   fi
