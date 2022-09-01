@@ -22,8 +22,6 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-#       chmod +x ./test.sh
-#       bash ./test.sh
         sudo -E apt-get update -y
         sudo -E apt-get install -y aggregate whois jq
         
