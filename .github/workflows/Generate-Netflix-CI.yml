@@ -22,6 +22,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        echo "$(cat /proc/cpuinfo | grep 'model name')"
         runner_cpu="$(cat /proc/cpuinfo | grep 'model name')"
         cpu1="C CPU"
         cpu2="M CPU"
