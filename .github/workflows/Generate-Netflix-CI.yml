@@ -20,6 +20,8 @@ jobs:
     
     - name: Check runner
       run: |
+        cat /proc/cpuinfo | grep 'model name' | grep 'C CPU'
+        cat /proc/cpuinfo | grep 'model name' | grep 'M CPU'
         chmod +x ./test.sh
         bash ./test.sh
   
