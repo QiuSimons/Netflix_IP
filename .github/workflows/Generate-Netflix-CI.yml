@@ -17,6 +17,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+    
+    - name: Check runner
+      run: |
+        chmod +x ./test.sh
+        bash ./test.sh
   
     - name: Init build dependencies
       env:
