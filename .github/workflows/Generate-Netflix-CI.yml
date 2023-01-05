@@ -33,10 +33,10 @@ jobs:
         bash ./netflix_iprange.sh
         rm -f ./update.txt
         chmod +x ./mapcidr
-        ./mapcidr -l ./NF_only.txt -o ./NOTMP.txt -sbh 65530
+        ./mapcidr -l ./NF_only.txt -o ./NOTMP.txt -sbh 65536
         cat ./NOTMP.txt > ./NF_only.txt
         rm -f ./NOTMP.txt
-        ./mapcidr -l ./getflix.txt -o ./NOTMP.txt -sbh 65530
+        ./mapcidr -l ./getflix.txt -o ./NOTMP.txt -sbh 65536
         cat ./NOTMP.txt > ./getflix.txt
         rm -f ./NOTMP.txt
         echo `date +%Y/%m/%d\ %H:%M:%S\ %Z` >> ./update.txt
