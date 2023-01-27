@@ -33,6 +33,13 @@ curl -O https://ip-ranges.amazonaws.com/ip-ranges.json
 jq -r '[.prefixes | .[].ip_prefix] - [.prefixes[] | select(.service=="GLOBALACCELERATOR").ip_prefix] - [.prefixes[] | select(.service=="AMAZON").ip_prefix] - [.prefixes[] | select(.region=="cn-north-1").ip_prefix] - [.prefixes[] | select(.region=="cn-northwest-1").ip_prefix] | .[]' < ip-ranges.json >> getflix.tmp
 jq -r '[.prefixes | .[].ip_prefix] - [.prefixes[] | select(.service=="EC2").ip_prefix] - [.prefixes[] | select(.service=="AMAZON").ip_prefix] - [.prefixes[] | select(.region=="cn-north-1").ip_prefix] - [.prefixes[] | select(.region=="cn-northwest-1").ip_prefix] | .[]' < ip-ranges.json >> getflix.tmp
 jq -r '[.prefixes | .[].ip_prefix] - [.prefixes[] | select(.service=="CLOUDFRONT").ip_prefix] - [.prefixes[] | select(.service=="AMAZON").ip_prefix] - [.prefixes[] | select(.region=="cn-north-1").ip_prefix] - [.prefixes[] | select(.region=="cn-northwest-1").ip_prefix] | .[]' < ip-ranges.json >> getflix.tmp
+
+# Get the Akamai Netflix CDN ip range list
+for as in $(unzip -p nflix.zip `unzip -l nflix.zip |grep -e GeoLite2-ASN-Blocks-IPv4.csv | sed 's/^.\{30\}//g'` | grep -i netflix | cut -d"," -f2 | sort -u)
+    do
+     whois -h whois.radb.net -- '-i origin AS20940' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+done
+
 # unify both the IP address ranges
 cat getflix.tmp | aggregate -q >getflix.txt
 #tidy the tempfiles
