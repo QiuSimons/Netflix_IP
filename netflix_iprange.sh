@@ -37,7 +37,7 @@ jq -r '[.prefixes | .[].ip_prefix] - [.prefixes[] | select(.service=="CLOUDFRONT
 # Get the Akamai Netflix CDN ip range list
 for as in $(unzip -p nflix.zip `unzip -l nflix.zip |grep -e GeoLite2-ASN-Blocks-IPv4.csv | sed 's/^.\{30\}//g'` | grep -i netflix | cut -d"," -f2 | sort -u)
     do
-     whois -h whois.radb.net -- '-i origin AS20940' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
+#     whois -h whois.radb.net -- '-i origin AS20940' | grep -Eo "([0-9.]+){4}/[0-9]+" | tee netflix_ranges.txt >>getflix.tmp
 done
 
 # unify both the IP address ranges
